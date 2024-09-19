@@ -44,7 +44,7 @@ router.post(
     body('description')
         .exists()
         .withMessage("Event description is required."),
-    body('eventData')
+    body('eventDate')
         .exists()
         .withMessage("Event data is required."),
     body('organizer')

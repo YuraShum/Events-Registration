@@ -7,41 +7,41 @@ const eventApi = {
             const response = await publicUser.get(
                 eventEndpointsConfig.getAllEvents
             )
-            return {response}
+            return { response }
         } catch (error) {
-            return {error}
+            return { error }
         }
     },
-    getEventInformation: async ({eventId}) => {
+    getEventInformation: async ({ eventId }) => {
         try {
             const response = await publicUser.get(
                 eventEndpointsConfig.getEventInformation(eventId)
             )
-            return {response}
+            return { response }
         } catch (error) {
-            return {error}
+            return { error }
         }
     },
-    addUserToEvent: async ({eventId, fullname, email, dateOfBirth, source}) => {
+    addUserToEvent: async ({ eventId, fullname, email, dateOfBirth, source }) => {
         try {
             const response = await publicUser.post(
                 eventEndpointsConfig.addUserToEvent(eventId),
-                {fullname, email, dateOfBirth, source}
+                { fullname, email, dateOfBirth, source }
             )
-            return {response}
+            return { response }
         } catch (error) {
-            return {error}
+            return { error }
         }
     },
-    createNewEvent: async ({title, description, eventData, organizer}) => {
+    createNewEvent: async ({ title, description, eventDate, organizer }) => {
         try {
             const response = await publicUser.post(
                 eventEndpointsConfig.createNewEvent,
-                {title, description, eventData, organizer}
+                { title, description, eventDate, organizer }
             )
-            return {response}
+            return { response }
         } catch (error) {
-            return {error}
+            return { error }
         }
     }
 

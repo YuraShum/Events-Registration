@@ -10,7 +10,7 @@ const eventShema = mongoose.Schema({
         type: String,
         required: true,
     },
-    eventData: {
+    eventDate: {
         type: Date,
         required: true,
     },
@@ -18,7 +18,7 @@ const eventShema = mongoose.Schema({
         type: String,
         required: true,
     },
-    userListeners:[
+    userListeners: [
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Listener'

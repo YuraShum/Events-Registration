@@ -67,13 +67,13 @@ class EventService {
 
     async createNewEvent(request, response) {
         try {
-            const { title, description, eventData, organizer } = request.body
+            const { title, description, eventDate, organizer } = request.body
 
             const newEvent = new EventModel(
                 {
                     title,
                     description,
-                    eventData,
+                    eventDate,
                     organizer,
 
                 }
