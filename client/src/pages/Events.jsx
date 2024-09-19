@@ -3,19 +3,22 @@ import eventApi from '../api/requests/event.requests'
 import EventItem from '../components/ui/EventItem';
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
-import { CiCirclePlus } from "react-icons/ci";
+import SelectFilter from '../components/SelectFilter';
+
 
 const Events = () => {
 
     const [allEvents, setAllEvents] = useState([])
     const [currentPage, setCurrentPage] = useState(1);
+    const [sortedEvents, setSortedEvents] = useState([]);
+    const [selectedSortCtriteria, setSelectedSortCriteria] = useState("none")
 
     const step = 12
-    const totalPages = Math.ceil(allEvents.length / step);
+    const totalPages = Math.ceil(sortedEvents.length / step);
 
     const indexOfLastEvent = currentPage * step;
     const indexOfFirstEvent = indexOfLastEvent - step;
-    const currentEvents = allEvents.slice(indexOfFirstEvent, indexOfLastEvent);
+    const currentEvents = sortedEvents.slice(indexOfFirstEvent, indexOfLastEvent);
 
 
     useEffect(() => {
@@ -24,6 +27,7 @@ const Events = () => {
 
             if (response) {
                 setAllEvents(response)
+                setSortedEvents(response)
             }
             if (error) {
                 console.log(error)
@@ -31,6 +35,28 @@ const Events = () => {
         }
         getEvents()
     }, [])
+
+    useEffect(() => {
+        let sorted = [...allEvents]
+
+        if (selectedSortCtriteria !== 'none') {
+            sorted = sorted.sort((a, b) => {
+                switch (selectedSortCtriteria) {
+                    case 'title':
+                        return a.title.localeCompare(b.title);
+                    case 'eventDate':
+                        return new Date(a.eventDate) - new Date(b.eventDate)
+                    case 'organizer':
+                        return a.organizer.localeCompare(b.organizer);
+
+                    default:
+                        return 0
+                }
+            })
+        }
+        setSortedEvents(sorted)
+
+    }, [allEvents, selectedSortCtriteria])
     console.log(allEvents)
 
     const handlePreviosPage = () => {
@@ -45,20 +71,19 @@ const Events = () => {
             window.scrollTo(0, 0);
         }
     }
+
+    const handleChangeSelectedCriteria = (event) => {
+        setSelectedSortCriteria(event.target.value)
+    }
     return (
 
-        <div className='relative'>
-            <a
-                href='/events/create'
-                className='absolute top-12 right-5 flex gap-1 items-center cursor-pointer'>
-                <span className='text-xl'>Create</span>
-                <CiCirclePlus className='w-6 h-6' />
-            </a>
+        <div className=''>
             <h1 className='text-4xl font-bold text-custom text-center py-4'>Events</h1>
             {/** filter section */}
-            <div>
-
-            </div>
+            <SelectFilter 
+            selectedSortCtriteria = {selectedSortCtriteria}
+            handleChangeSelectedCriteria= {handleChangeSelectedCriteria}
+            />
             {/** event section */}
             <div className="grid sm:grid-cols-2  md:grid-cols-3 lg:grid-cols-4 gap-8 p-4 ">
                 {currentEvents.map(event => (
@@ -77,7 +102,6 @@ const Events = () => {
                     <IoIosArrowForward className='' />
                 </button>
             </div>
-            <div></div>
         </div>
     )
 }
