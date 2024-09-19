@@ -35,11 +35,13 @@ const Events = () => {
     const handlePreviosPage = () => {
         if(currentPage > 1){
             setCurrentPage(prevValue => prevValue - 1)
+            window.scrollTo(0, 0);
         }
     }
     const handleNextPage = () => {
         if(currentPage < totalPages){
             setCurrentPage(prevValue => prevValue + 1)
+            window.scrollTo(0, 0);
         }
     }
     return (
@@ -51,7 +53,7 @@ const Events = () => {
 
             </div>
             {/** event section */}
-            <div className="grid grid-cols-4 gap-8 p-4 ">
+            <div className="grid sm:grid-cols-2  md:grid-cols-3 lg:grid-cols-4 gap-8 p-4 ">
                 {currentEvents.map(event => (
                     <EventItem key={event._id} event={event}/>
                 ))}

@@ -4,16 +4,19 @@ import EventRegister from "./pages/EventRegister";
 import EventParticipants from "./pages/EventParticipants";
 import CreateEvent from "./pages/CreateEvent";
 import NotFound from "./pages/NotFound";
+import { ToastContainer } from "react-toastify"
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
-    <div className=" w-full max-w-[1360px] m-auto bg-primary min-h-[100vh] h-full">
+    <div className=" w-full max-w-[1360px] m-auto bg-primary min-h-[100vh] h-full text-white">
+      <ToastContainer theme="light"/>
       <BrowserRouter >
       <Routes>
         <Route path="/" element={<Navigate to='/events'/>}></Route>
         <Route path="/events" element={<Events />} />
-        <Route path="/events/:id/register" element={<EventRegister />} />
-        <Route path="/events/:id/participats" element={<EventParticipants/>}/>
+        <Route path="/events/:eventId/register" element={<EventRegister />} />
+        <Route path="/events/:eventId/participats" element={<EventParticipants/>}/>
         <Route path="/events/create" element={<CreateEvent/>}/>
         <Route path="*" element={<NotFound />} />
       </Routes>
