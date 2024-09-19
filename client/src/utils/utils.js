@@ -14,7 +14,7 @@ export const readableTime = (time) => {
     return `${reableDate}, ${readableTime}`
 };
 
-export default function getSourceColor(source) {
+export function getSourceColor(source) {
     switch (source) {
         case 'Social media':
             return '#1DA1F2'; 

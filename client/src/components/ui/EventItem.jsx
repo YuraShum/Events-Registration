@@ -17,7 +17,7 @@ const EventItem = ({ event }) => {
             </div>
             <div className='flex flex-col gap-1'>
                 <p className='text-sm'>{event.description}</p>
-                <p className='opacity-75 text-sm'>{readableTime(event.eventData)}</p>
+                <p className='opacity-75 text-sm'>{readableTime(event.eventDate)}</p>
             </div>
             <div className='flex justify-between items-center'>
                 <a

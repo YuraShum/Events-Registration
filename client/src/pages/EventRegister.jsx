@@ -29,7 +29,6 @@ const EventRegister = () => {
             <ReturnLink/>
             <div className='flex justify-center'>
                 <RegisterForm/>
-
             </div>
         </div>
     )

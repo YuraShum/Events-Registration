@@ -7,10 +7,22 @@ const NewEventForm = () => {
         reset,
         register,
         handleSubmit,
-        formState: { errors }
+        formState: { errors },
+        setError
     } = useForm()
 
     const navigate = useNavigate()
+    const now = new Date().toISOString().slice(0, 16);
+
+    const validateDateTime = (value) => {
+        const inputDate = new Date(value).getTime();
+        const currentDate = new Date().getTime();
+
+        if (inputDate < currentDate) {
+            return 'The date and time cannot be earlier than the current moment.';
+        }
+        return true;
+    };
 
     const handleCancelForm = () => {
         reset()
@@ -18,9 +30,14 @@ const NewEventForm = () => {
 
     const submiteNewEvent = async (values) => {
         console.log(values)
-        const {response, error} = await eventApi.createNewEvent(values)
+        const dateTimeError = validateDateTime(values.eventDate);
+        if (dateTimeError !== true) {
+            setError('eventDate', { type: 'manual', message: dateTimeError });
+            return;
+        }
+        const { response, error } = await eventApi.createNewEvent(values)
 
-        if(response){
+        if (response) {
             reset()
             navigate("/events");
             toast.success(`Successfully created`)
@@ -31,9 +48,11 @@ const NewEventForm = () => {
         }
     }
 
+
+
     return (
         <form
-        onSubmit={handleSubmit(submiteNewEvent)}
+            onSubmit={handleSubmit(submiteNewEvent)}
             className='flex flex-col gap-4 p-6 max-w-[600px] w-full text-custom'>
             <div className='flex flex-col gap-2'>
                 <label className='text-lg md:text-xl font-bold'>Title</label>
@@ -57,14 +76,15 @@ const NewEventForm = () => {
                 )}
             </div>
             <div className='flex flex-col gap-2'>
-                <label className='text-lg md:text-xl font-bold'>Event date</label>
+                <label className='text-lg md:text-xl font-bold'>Event date and time</label>
                 <input
-                    type="date"
-                    placeholder='Enter event date here'
-                    {...register("eventData", { required: true })}
+                    type="datetime-local"
+                    placeholder='Enter event date and time here'
+                    {...register("eventDate", { required: true })}
+                    min={now}
                     className="bg-gray-100 p-3 text-sm md:text-lg border-gray-300 border-2 rounded-lg text-black" />
-                {errors.eventData && (
-                    <p className="text-red-500 text-sm -mt-1 pl-3">Дата обов'язкова.</p>
+                {errors.eventDate && (
+                    <p className="text-red-500 text-sm -mt-1 pl-3">{errors.eventDate.message}</p>
                 )}
             </div>
             <div className='flex flex-col gap-2'>
@@ -79,9 +99,9 @@ const NewEventForm = () => {
                 )}
             </div>
             <div className='flex items-center justify-between'>
-                <button 
-                onClick={handleCancelForm}
-                className='text-lg md:text-lg py-1 px-2 border-2 border-gray-300 rounded-lg cursor-pointer duration-500 hover:translate-y-[-2px]'>
+                <button
+                    onClick={handleCancelForm}
+                    className='text-lg md:text-lg py-1 px-2 border-2 border-gray-300 rounded-lg cursor-pointer duration-500 hover:translate-y-[-2px]'>
                     Cancel
                 </button>
                 <button
