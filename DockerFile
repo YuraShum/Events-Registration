@@ -1,0 +1,20 @@
+
+FROM node:19.2.0 AS client-build
+
+WORKDIR /client
+COPY ./client/package*.json ./
+RUN npm install
+COPY ./client ./
+RUN npm run build
+
+FROM node:19.2.0 AS server
+
+WORKDIR /server
+COPY ./server/package*.json ./
+RUN npm install
+COPY ./server ./
+EXPOSE 5022
+CMD ["npm", "run", "start"]
+
+FROM nginx:alpine AS nginx
+COPY --from=client-build /client/build /usr/share/nginx/html

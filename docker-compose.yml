@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  client:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: client-build
+    ports:
+      - '80:80' 
+    networks:
+      - app-network
+    depends_on:
+      - server
+
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: server
+    ports:
+      - '5022:5022' 
+    networks:
+      - app-network
+    environment:
+      - MONGODB_URL=mongodb://host.docker.internal:27017/eventsRegistration 
+      - PORT=5022
+
+networks:
+  app-network:
+    driver: bridge
