@@ -16,7 +16,7 @@ const RegisterForm = () => {
     const navigate = useNavigate()
 
     const submitRegisteredUser = async (values) => {
-        const { response, errors } = await eventApi.addUserToEvent({
+        const { response, error } = await eventApi.addUserToEvent({
             eventId,
             ...values
         })
@@ -26,8 +26,8 @@ const RegisterForm = () => {
             navigate("/events");
             toast.success(`Successfully registered`)
         }
-        if (errors) {
-            console.log(errors)
+        if (error) {
+            console.log(error)
             toast.error("Failed to register")
         }
 

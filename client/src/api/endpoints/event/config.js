@@ -1,7 +1,7 @@
 const eventEndpointsConfig = {
     getAllEvents: 'events',
     getEventInformation: (eventId) => {
-        return `events/${eventId}/information'`
+        return `events/${eventId}/information`
     },
     addUserToEvent: (eventId) => {
         return `events/${eventId}/listener`
