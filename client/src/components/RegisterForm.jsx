@@ -40,7 +40,7 @@ const RegisterForm = () => {
     return (
         <form
             onSubmit={handleSubmit(submitRegisteredUser)}
-            className='flex flex-col gap-4 p-6 max-w-[600px] text-custom'>
+            className='flex flex-col gap-4 p-6 max-w-[600px] w-full text-custom'>
             <div className='flex flex-col gap-2'>
                 <label className='text-lg md:text-xl font-bold'>Full name</label>
                 <input

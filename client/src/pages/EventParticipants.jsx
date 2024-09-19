@@ -12,6 +12,7 @@ const EventParticipants = () => {
 
   const [allParticipants, setAllParticipants] = useState([])
   const [currentPage, setCurrentPage] = useState(1);
+  const [eventTitle, setEventTitle] = useState("")
 
   const step = 6
   const totalPages = Math.ceil(allParticipants.length / step);
@@ -27,6 +28,7 @@ const EventParticipants = () => {
 
       if (response) {
         setAllParticipants(response.userListeners)
+        setEventTitle(response.title)
       }
       if (error) {
         console.log(error)
@@ -53,7 +55,8 @@ const EventParticipants = () => {
 
   return (
     <div className='text-white'>
-      <h2 className='text-4xl font-bold text-custom text-center py-4'>EventParticipants</h2>
+      <h2 className='text-4xl font-bold text-custom text-center pt-4'>Event Participants</h2>
+      <p className='italic opacity-80 text-lg text-center'>({eventTitle})</p>
       <ReturnLink />
       <div className="grid  md:grid-cols-2 lg:grid-cols-3 gap-8 p-4 ">
         {currentParticipants.map(listener => (

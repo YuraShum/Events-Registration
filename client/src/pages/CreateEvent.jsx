@@ -7,7 +7,9 @@ const CreateEvent = () => {
         <div>
             <h2 className='text-4xl font-bold text-custom text-center py-4'>Create new Event</h2>
             <ReturnLink />
+            <div className='flex justify-center'>
             <NewEventForm/>
+            </div>
         </div>
     )
 }
