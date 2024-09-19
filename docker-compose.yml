@@ -3,9 +3,8 @@ version: '3.8'
 services:
   client:
     build:
-      context: .
+      context: ./client
       dockerfile: Dockerfile
-      target: client-build
     ports:
       - '80:80' 
     networks:
@@ -15,9 +14,8 @@ services:
 
   server:
     build:
-      context: .
+      context: ./server
       dockerfile: Dockerfile
-      target: server
     ports:
       - '5022:5022' 
     networks:
@@ -25,6 +23,14 @@ services:
     environment:
       - MONGODB_URL=mongodb://host.docker.internal:27017/eventsRegistration 
       - PORT=5022
+    depends_on:
+      - mongo
+  
+  mongo: 
+    image: mongo
+    restart: always
+    ports:
+      - "27017:27017"
 
 networks:
   app-network:
