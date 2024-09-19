@@ -1,5 +1,17 @@
 import mongoose from "mongoose";
 
+const sourceSchema = new mongoose.Schema({
+    eventId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Event',
+        required: true
+    },
+    source: {
+        type: String,
+        required: true
+    }
+}, { _id: false });
+
 const listenerShema = mongoose.Schema({
     fullname: {
         type: String,
@@ -13,10 +25,7 @@ const listenerShema = mongoose.Schema({
         type: Date,
         required: true,
     },
-    source: {
-        type: String,
-        required: true,
-    }
+    eventSources: [sourceSchema] 
 }, { timestamps: true })
 
 const listenerModel = mongoose.model('Listener', listenerShema)

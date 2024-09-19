@@ -16,8 +16,17 @@ class EventService {
     async getEventInformation(request, response) {
         try {
             const { eventId } = request.params
+
             const event = await EventModel.findById(eventId)
-                .populate('userListeners', 'fullname email source dateOfBirth')
+            .populate({
+                path: 'userListeners',
+                select: 'fullname email dateOfBirth eventSources',
+                populate: {
+                    path: 'eventSources.eventId',
+                    select: 'source',
+                    match: { _id: eventId }
+                }
+            });
 
             if (!event) {
                 responseHandlers.notFound(response, "This event does not exist")
@@ -41,8 +50,17 @@ class EventService {
                     fullname,
                     email,
                     dateOfBirth,
-                    source
+                    eventSources: [{ eventId, source }]
                 });
+                await existingListener.save();
+            }else {
+                const existingSource = existingListener.eventSources.find(item => item.eventId.toString() === eventId);
+
+                if (existingSource) {
+                    return responseHandlers.conflict(response, "This user is already registered for this event.");
+                }
+    
+                existingListener.eventSources.push({ eventId, source });
                 await existingListener.save();
             }
 
