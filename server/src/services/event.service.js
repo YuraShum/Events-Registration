@@ -17,6 +17,7 @@ class EventService {
         try {
             const { eventId } = request.params
             const event = await EventModel.findById(eventId)
+                .populate('userListeners', 'fullname email source dateOfBirth')
 
             if (!event) {
                 responseHandlers.notFound(response, "This event does not exist")
@@ -31,10 +32,10 @@ class EventService {
         try {
             const { eventId } = request.params;
             const { fullname, email, dateOfBirth, source } = request.body;
-    
-            
+
+
             let existingListener = await listenerModel.findOne({ email });
-    
+
             if (!existingListener) {
                 existingListener = new listenerModel({
                     fullname,
@@ -44,29 +45,29 @@ class EventService {
                 });
                 await existingListener.save();
             }
-    
+
             const event = await EventModel.findById(eventId);
             if (!event) {
                 return responseHandlers.notFound(response, "This event does not exist");
             }
-    
+
             const isAlreadyListener = event.userListeners.includes(existingListener._id);
             if (isAlreadyListener) {
                 return responseHandlers.conflict(response, "This user is already registered for the event.");
             }
-    
+
             event.userListeners.push(existingListener._id);
             await event.save();
-    
+
             responseHandlers.created(response, existingListener);
         } catch (error) {
             responseHandlers.error(response);
         }
     }
 
-    async createNewEvent(request, response){
+    async createNewEvent(request, response) {
         try {
-            const {title, description, eventData, organizer} = request.body
+            const { title, description, eventData, organizer } = request.body
 
             const newEvent = new EventModel(
                 {

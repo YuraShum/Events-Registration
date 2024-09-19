@@ -14,3 +14,15 @@ export const readableTime = (time) => {
     return `${reableDate}, ${readableTime}`
 };
 
+export default function getSourceColor(source) {
+    switch (source) {
+        case 'Social media':
+            return '#1DA1F2'; 
+        case 'Friends':
+            return '#28a745'; 
+        case 'Found myself':
+            return '#f8ac54'; 
+        default:
+            return '#808080'; 
+    }
+}
