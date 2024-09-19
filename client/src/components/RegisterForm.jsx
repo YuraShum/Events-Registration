@@ -3,22 +3,31 @@ import eventApi from '../api/requests/event.requests';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
+import DatePicker from "react-datepicker";
+
+import "react-datepicker/dist/react-datepicker.css";
+import { useState } from 'react';
+
 const RegisterForm = () => {
     const {
         reset,
         register,
         handleSubmit,
-        formState: { errors }
+        formState: { errors },
+        setValue
     } = useForm()
 
     const { eventId } = useParams()
 
     const navigate = useNavigate()
+    const [selectedDate, setSelectedDate] = useState(null);
+    const currentDate = new Date();
 
     const submitRegisteredUser = async (values) => {
         const { response, error } = await eventApi.addUserToEvent({
             eventId,
-            ...values
+            ...values,
+            dateOfBirth: selectedDate.toISOString()
         })
 
         if (response) {
@@ -37,6 +46,12 @@ const RegisterForm = () => {
     const handleCancelForm = () => {
         reset()
     }
+
+    const handleChangeDate = (date) => {
+        setSelectedDate(date);
+        setValue("dateOfBirth", date ? date.toISOString().split('T')[0] : "");
+    }
+
     return (
         <form
             onSubmit={handleSubmit(submitRegisteredUser)}
@@ -45,11 +60,17 @@ const RegisterForm = () => {
                 <label className='text-lg md:text-xl font-bold'>Full name</label>
                 <input
                     type="text"
-                    placeholder='Enter your name here'
-                    {...register("fullname", { required: true })}
+                    placeholder='Enter your full name (Last Name First Name Patronymic)'
+                    {...register("fullname", {
+                        required: true,
+                        pattern: {
+                            value: /^([A-ZА-ЯІЇЄ][a-zа-яієїї']+)\s([A-ZА-ЯІЇЄ][a-zа-яієїї']+)\s([A-ZА-ЯІЇЄ][a-zа-яієїї']+)$|^([A-Z][a-z]+)\s([A-Z][a-z]+)\s([A-Z][a-z]+)$/,
+                            message: "Введіть ПІБ у форматі: Прізвище Ім'я По батькові"
+                        }
+                    })}
                     className="bg-gray-100 p-3 text-sm md:text-lg border-gray-300 border-2 rounded-lg text-black" />
                 {errors.fullname && (
-                    <p className="text-red-500 text-sm -mt-1 pl-3">Поле обов'язкове.</p>
+                    <p className="text-red-500 text-sm -mt-1 pl-3">{errors.fullname.message || "Поле обов'язкове."}</p>
                 )}
             </div>
             <div className='flex flex-col gap-2'>
@@ -57,19 +78,28 @@ const RegisterForm = () => {
                 <input
                     type="email"
                     placeholder='Enter your email here'
-                    {...register("email", { required: true })}
+                    {...register("email", {
+                        required: true,
+                        pattern: {
+                            value: /\S+@\S+\.\S+/,
+                            message: "Введене значення не відповідає формату електронної пошти",
+                        },
+                    })}
                     className="bg-gray-100 p-3 text-sm md:text-lg border-gray-300 border-2 rounded-lg text-black" />
                 {errors.email && (
-                    <p className="text-red-500 text-sm -mt-1 pl-3">Поле обов'язкове.</p>
+                    <p className="text-red-500 text-sm -mt-1 pl-3">{errors.email.message || "Поле обов'язкове."}</p>
                 )}
             </div>
             <div className='flex flex-col gap-2'>
                 <label className='text-lg md:text-xl font-bold'>Date of birth</label>
-                <input
-                    type="date"
-                    placeholder='Enter your date of birth here'
-                    {...register("dateOfBirth", { required: true })}
-                    className="bg-gray-100 p-3 text-sm md:text-lg border-gray-300 border-2 rounded-lg text-black" />
+                <DatePicker
+                    selected={selectedDate}
+                    onChange={handleChangeDate}
+                    className="bg-gray-100 p-3 text-sm md:text-lg border-gray-300 border-2 rounded-lg text-black w-full"
+                    placeholderText="Select your date of birth"
+                    dateFormat="yyyy-MM-dd"
+                    maxDate={currentDate}
+                />
                 {errors.dateOfBirth && (
                     <p className="text-red-500 text-sm -mt-1 pl-3">Поле обов'язкове.</p>
                 )}
@@ -116,9 +146,9 @@ const RegisterForm = () => {
                 )}
             </div>
             <div className='flex items-center justify-between'>
-                <button 
-                onClick={handleCancelForm}
-                className='text-lg md:text-lg py-1 px-2 border-2 border-gray-300 rounded-lg cursor-pointer duration-500 hover:translate-y-[-2px]'>
+                <button
+                    onClick={handleCancelForm}
+                    className='text-lg md:text-lg py-1 px-2 border-2 border-gray-300 rounded-lg cursor-pointer duration-500 hover:translate-y-[-2px]'>
                     Cancel
                 </button>
                 <button
