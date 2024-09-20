@@ -1,9 +1,11 @@
 import axios from 'axios'
 
 import queryString from 'query-string'
+
+console.log(process.env.REACT_APP_BASE_URL)
 const publicUser = axios.create(
     {
-        baseURL: process.env.BASE_URL || 'http://localhost:5022/api',
+        baseURL: process.env.REACT_APP_BASE_URL,
         paramsSerializer: {
             encode: params => queryString.stringify(params)
         }
