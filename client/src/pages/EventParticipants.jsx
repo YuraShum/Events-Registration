@@ -74,9 +74,9 @@ const EventParticipants = () => {
     <div className='text-white'>
       <h2 className='text-4xl font-bold text-custom text-center pt-4'>Event Participants</h2>
       <p className='italic opacity-80 text-lg text-center'>({eventTitle})</p>
-      <div className='flex justify-between items-center px-6'>
+      <div className='flex justify-between items-center px-6 mt-4'>
         <ReturnLink />
-        <div className='relative text-black mt-4'>
+        <div className='relative text-black'>
           <CiSearch className='absolute top-[12px] left-0 w-6 h-6' />
           <input
             className='bg-gray-100 p-2 text-sm md:text-lg border-gray-300 border-2 rounded-lg pl-6'
