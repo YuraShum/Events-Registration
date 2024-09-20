@@ -24,6 +24,9 @@ This is a web-based application for event registration, allowing users to view e
 - **Backend**: Node.js (with Express)
 - **Database**: MongoDB with Mongoose library
 
+## Demo
+You can view the demo version [here](https://events-registration-production-5dc0.up.railway.app/).
+
 ## Functionality Demonstration
 ### Events Board Page
 #### Desktop View
