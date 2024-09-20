@@ -31,7 +31,7 @@ const EventRegister = () => {
                 <Loader />
                 :
                 <div className='flex justify-center flex-col'>
-                    <h2 className='text-4xl font-bold text-custom text-center pt-4'>Event registration</h2>
+                    <h2 className='text-4xl font-bold text-custom text-center text-wrap pt-4 px-6'>Registration for the event</h2>
                     <p className='italic opacity-80 text-lg text-center'>({title})</p>
                     <ReturnLink />
                     <div className='flex justify-center'>

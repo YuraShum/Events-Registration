@@ -79,7 +79,7 @@ const EventParticipants = () => {
         <Loader />
         :
         <div className='text-white'>
-          <h2 className='text-4xl font-bold text-custom text-center pt-4'>Event Participants</h2>
+          <h2 className='text-4xl font-bold text-custom text-center pt-4 py-6'>Event Participants</h2>
           <p className='italic opacity-80 text-lg text-center'>({eventTitle})</p>
           <div className='flex justify-between items-center px-6 mt-4'>
             <ReturnLink />
