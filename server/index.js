@@ -15,7 +15,7 @@ const port = process.env.PORT || 5022
 
 const server = http.createServer(app)
 
-mongoose.connect(process.env.MONGO_PUBLIC_URL)
+mongoose.connect(process.env.MONGO_URL)
     .then(() => {
         server.listen(port, () => {
             console.log(`Server is listening on port: ${port}`)
