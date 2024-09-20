@@ -6,7 +6,10 @@ class EventService {
 
     async getAllEvents(request, response) {
         try {
+            
             const events = await EventModel.find()
+
+            console.log(events)
             responseHandlers.ok(response, events)
         } catch (error) {
             responseHandlers.error(response)

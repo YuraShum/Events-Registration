@@ -14,10 +14,12 @@ app.use("/api", routes)
 const port = process.env.PORT || 5022
 
 const server = http.createServer(app)
+console.log(process.env.MONGO_URL)
 
 mongoose.connect(process.env.MONGO_URL)
     .then(() => {
         server.listen(port, () => {
+            
             console.log(`Server is listening on port: ${port}`)
         })
     })
