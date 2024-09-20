@@ -15,7 +15,6 @@ router.get(
     '/events/:eventId/information',
     eventService.getEventInformation.bind(eventService)
 )
-//!! Додати валідацію для дати народження
 router.post(
     '/events/:eventId/listener',
     body('fullname')
