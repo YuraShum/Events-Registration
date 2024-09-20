@@ -12,11 +12,11 @@ const SelectFilter = ({selectedSortCtriteria, handleChangeSelectedCriteria}) => 
       <div className=' flex gap-2 items-center'>
         <label className='text-xl'>Sort:</label>
         <select
-          className='text-primary rounded-lg'
+          className='text-primary rounded-lg cursor-pointer'
           id="selectedSortCtriteria"
           value={selectedSortCtriteria}
           onChange={handleChangeSelectedCriteria}>
-          <option value="none">no sorting</option>
+          <option value="none" >no sorting</option>
           <option value="title">by name</option>
           <option value="eventDate">by date</option>
           <option value="organizer">by organizer</option>
