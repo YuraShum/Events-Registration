@@ -1,9 +1,9 @@
 import axios from 'axios'
-import configURL from '../../config/config.js'
+
 import queryString from 'query-string'
 const publicUser = axios.create(
     {
-        baseURL: configURL.BASE_URL,
+        baseURL: process.env.BASE_URL || 'http://localhost:5022/api',
         paramsSerializer: {
             encode: params => queryString.stringify(params)
         }
