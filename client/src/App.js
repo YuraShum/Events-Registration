@@ -11,7 +11,7 @@ function App() {
   return (
     <div className=" w-full max-w-[1360px] m-auto bg-primary min-h-[100vh] h-full text-white">
       <ToastContainer theme="light"/>
-      <BrowserRouter >
+      <BrowserRouter basename="events">
       <Routes>
         <Route path="/" element={<Navigate to='/events'/>}></Route>
         <Route path="/events" element={<Events />} />
