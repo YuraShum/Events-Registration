@@ -40,9 +40,9 @@ This is a web-based application for event registration, allowing users to view e
 
 ### Pagination
 #### First page
-![Pagination - Desktop](./client/public/Readme/pagination/firstPage.png)  
+![Pagination - Desktop](./client/public/Readme/eventsPage/pagination/firstPage.png)  
 #### Second page
-![Pagination - Desktop](./client/public/Readme/pagination/secondPage.png) 
+![Pagination - Desktop](./client/public/Readme/eventsPage/pagination/secondPage.png) 
 
 ### Filtering events
 #### by name
