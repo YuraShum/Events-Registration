@@ -18,6 +18,8 @@ This is a web-based application for event registration, allowing users to view e
 - **Additional Feature**:
   - Implemented the ability to create new events.
   - Added GitHub Actions for automated deployment.
+  - Added a function where when adding a user to an event, not only the fields are checked, but also the uniqueness check. If a user with the email address `roman@gmail.com` is already registered for a particular event, a new user will not be created again if the same email is used for that event , and an error message will be shown using `toast.error()`.
+
 
 ## Technology Stack
 - **Frontend**: React.js, Tailwind CSS
