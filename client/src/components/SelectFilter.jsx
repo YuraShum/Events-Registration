@@ -1,11 +1,7 @@
 import React from "react";
 import { CiCirclePlus } from "react-icons/ci";
 
-
-
-const SelectFilter = ({selectedSortCtriteria, handleChangeSelectedCriteria}) => {
-
-
+const SelectFilter = ({ selectedSortCtriteria, handleChangeSelectedCriteria }) => {
 
   return (
     <div className='flex justify-between items-center px-6'>
@@ -21,7 +17,6 @@ const SelectFilter = ({selectedSortCtriteria, handleChangeSelectedCriteria}) => 
           <option value="eventDate">by date</option>
           <option value="organizer">by organizer</option>
         </select>
-
       </div>
       <a
         href='/events/create'

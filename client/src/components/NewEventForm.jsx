@@ -2,7 +2,9 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import eventApi from '../api/requests/event.requests';
+
 const NewEventForm = () => {
+
     const {
         reset,
         register,
@@ -17,7 +19,6 @@ const NewEventForm = () => {
     const validateDateTime = (value) => {
         const inputDate = new Date(value).getTime();
         const currentDate = new Date().getTime();
-
         if (inputDate < currentDate) {
             return 'The date and time cannot be earlier than the current moment.';
         }
@@ -36,7 +37,6 @@ const NewEventForm = () => {
             return;
         }
         const { response, error } = await eventApi.createNewEvent(values)
-
         if (response) {
             reset()
             navigate("/events");
@@ -47,8 +47,6 @@ const NewEventForm = () => {
             toast.error("Failed create new Event")
         }
     }
-
-
 
     return (
         <form

@@ -26,7 +26,6 @@ const EventParticipants = () => {
   const indexOfFirstParticipants = indexOfLastParticipants - step;
   const currentParticipants = filteredParticipants.slice(indexOfFirstParticipants, indexOfLastParticipants);
 
-
   useEffect(() => {
     const getAllInfoAboutEvent = async () => {
       setIsLoading(true)
@@ -45,7 +44,6 @@ const EventParticipants = () => {
     getAllInfoAboutEvent()
   }, [])
 
-
   const handlePreviosPage = () => {
     if (currentPage > 1) {
       setCurrentPage(prevValue => prevValue - 1)
@@ -61,9 +59,7 @@ const EventParticipants = () => {
 
   const handleSearch = (event) => {
     const eventValue = event.target.value
-
     ssetSearchValue(eventValue)
-
     const filtered = allParticipants.filter(participant =>
       participant.email.toLowerCase().includes(eventValue.toLowerCase()) ||
       participant.fullname.toLowerCase().includes(eventValue.toLowerCase())
@@ -71,7 +67,6 @@ const EventParticipants = () => {
     setFilteredParticipants(filtered)
     setCurrentPage(1)
   }
-
 
   return (
     <>
@@ -95,7 +90,6 @@ const EventParticipants = () => {
           </div>
           {currentParticipants.length > 0 ?
             <div className="grid  md:grid-cols-2 lg:grid-cols-3 gap-8 p-4 ">
-
               <>
                 {currentParticipants.map(listener => (
                   <ListenerItem key={listener._id} listener={listener} />

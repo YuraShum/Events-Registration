@@ -5,7 +5,6 @@ import { MdOutlineAppRegistration } from "react-icons/md";
 
 const EventItem = ({ event }) => {
 
-
     return (
         <div className='flex flex-col gap-5 border-gray-400 border-2 p-4 rounded-lg text-white justify-between'>
             <div className=''>

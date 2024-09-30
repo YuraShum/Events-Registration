@@ -17,20 +17,16 @@ const Events = () => {
 
     const step = 12
     const totalPages = Math.ceil(sortedEvents.length / step);
-
     const indexOfLastEvent = currentPage * step;
     const indexOfFirstEvent = indexOfLastEvent - step;
     const currentEvents = sortedEvents.slice(indexOfFirstEvent, indexOfLastEvent);
-
 
     useEffect(() => {
         const getEvents = async () => {
             setIsLoading(true)
             const { response, error } = await eventApi.getAllEvents()
-
             setIsLoading(false)
             if (response) {
-
                 setAllEvents(response)
                 setSortedEvents(response)
             }
@@ -43,7 +39,6 @@ const Events = () => {
 
     useEffect(() => {
         let sorted = [...allEvents]
-
         if (selectedSortCtriteria !== 'none') {
             sorted = sorted.sort((a, b) => {
                 switch (selectedSortCtriteria) {
@@ -53,16 +48,13 @@ const Events = () => {
                         return new Date(a.eventDate) - new Date(b.eventDate)
                     case 'organizer':
                         return a.organizer.localeCompare(b.organizer);
-
                     default:
                         return 0
                 }
             })
         }
         setSortedEvents(sorted)
-
     }, [allEvents, selectedSortCtriteria])
-    console.log(allEvents)
 
     const handlePreviosPage = () => {
         if (currentPage > 1) {
@@ -112,7 +104,6 @@ const Events = () => {
                             </button>
                         </div>}
                 </>}
-
         </div>
     )
 }

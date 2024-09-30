@@ -1,12 +1,13 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AiOutlineHome } from 'react-icons/ai'; // Додайте іконку для головної сторінки, якщо потрібно
+import { AiOutlineHome } from 'react-icons/ai';
 
 const NotFound = () => {
+    
     const navigate = useNavigate();
 
     const handleGoHome = () => {
-        navigate('/events'); // Або інший маршрут для головної сторінки
+        navigate('/events');
     };
 
     return (

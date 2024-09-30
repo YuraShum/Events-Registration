@@ -18,7 +18,6 @@ const RegisterForm = () => {
     } = useForm()
 
     const { eventId } = useParams()
-
     const navigate = useNavigate()
     const [selectedDate, setSelectedDate] = useState(null);
     const currentDate = new Date();
@@ -29,7 +28,6 @@ const RegisterForm = () => {
             ...values,
             dateOfBirth: selectedDate.toISOString()
         })
-
         if (response) {
             reset()
             navigate("/events");
@@ -39,8 +37,6 @@ const RegisterForm = () => {
             console.log(error)
             toast.error("Failed to register")
         }
-
-
     }
 
     const handleCancelForm = () => {
@@ -157,7 +153,6 @@ const RegisterForm = () => {
                     Register
                 </button>
             </div>
-
         </form >
     )
 }
